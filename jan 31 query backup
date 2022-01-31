@@ -1,0 +1,1420 @@
+use trojan_allocation;
+
+
+
+show tables;
+
+***********************************************************************
+SELECT * FROM  application_user au 
+
+UPDATE  application_user set user_status = 1 WHERE user_id = 1
+
+***********************************************************************
+ALTER TABLE send_for_maintenance add column fix_or_return varchar(20);
+ 
+ALTER TABLE allocation_request_dtl drop column alloc_req_purchase_hire ;
+ 
+ALTER TABLE purchase_equipment_spec MODIFY column manufacturing_year year not null;
+
+ALTER TABLE send_for_maintenance RENAME COLUMN sfmDate TO sfm_date;
+
+**************************************************************************************
+
+SELECT COUNT(ard.allocation_request_id) FROM allocation_request_dtl ard WHERE alloc_req_external_hire =0  AND ard.created_at BETWEEN '2021-12-01' AND '2021-12-31'  		
+	
+SELECT COUNT(*)  from allocation_request_dtl ard WHERE alloc_req_external_hire = 1 AND ard.created_at BETWEEN '2021-12-01 00:00:00' AND '2021-12-31  23:59:59'  		
+	
+SELECT COUNT(*)  from allocation_request_dtl ard WHERE alloc_req_external_hire = 0 AND ard.created_at BETWEEN '2021-12-01 00:00:00' AND '2021-12-31  23:59:59'  		
+				
+SELECT COUNT(ard.alloc_req_dtl_id)  from allocation_request_dtl ard WHERE  ard.created_at BETWEEN '2021-11-20' AND  '2021-11-24' 
+
+*****************************************************************************************************************************************************	
+WHERE
+	(ared.alloc_req_eqp_dtl_date_of_arrival <= :enddDate
+		AND (ared.return_date >= :startDate
+			OR ared.return_date IS NULL))
+	AND ared.alloc_trj_req_dtl_eqp_status in(17, 9, 10, 18, 4)
+	AND p.project_id = :projectId 	AND ecl.equipment_category_id = :categoryId
+
+*****************************************************************************************************************************************************
+
+        select * FROM allocation_request_dtl ard WHERE allocation_request_id = 1951
+        
+        update allocation_request_dtl set alloc_request_duration_from = '2022-01-12 00:00:00' WHERE alloc_req_dtl_id = 4478
+        
+                update allocation_request_dtl set alloc_request_duration_to  = '2022-01-12 00:00:00' WHERE alloc_req_dtl_id = 4478
+
+        
+        
+		
+		select * FROM alloc_req_equip_dtl ared  WHERE alloc_req_dtl_id in (4507)
+		
+		
+		SELECT * FROM allocation_request_dtl_del ardd WHERE alloc_req_dtl_id in (4506)
+		
+		desc send_for_maintenance 
+
+		select * FROM allocation_request_dtl ard WHERE alloc_req_dtl_id = 4212
+		
+		
+		select * FROM alloc_req_equip_dtl ared  WHERE alloc_req_eqp_dtl_id = 2876
+		
+		
+******************************************************************************************************************************************	
+
+    SELECT * FROM allocation_request_dtl ard where alloc_req_external_hire = 1 
+    
+    
+    SELECT * FROM alloc_req_equip_dtl ared where alloc_req_dtl_id in 
+    
+   
+    SELECT * FROM allocation_request_dtl ard where alloc_req_dtl_id 
+
+
+   	UPDATE allocation_request_dtl set alloc_req_external_hire = 0 WHERE alloc_req_dtl_id  in 
+   	
+   	
+   	SELECT COUNT(*)  from allocation_request_dtl ard WHERE alloc_req_external_hire = 1 AND ard.created_at BETWEEN '2021-12-01 00:00:00' AND '2021-12-31  23:59:59'  		
+	
+   	
+    SELECT COUNT(*)  from allocation_request_dtl ard WHERE alloc_req_external_hire = 0 AND ard.created_at BETWEEN '2021-12-01 00:00:00' AND '2021-12-31  23:59:59'  
+
+   	
+====================================================================================================
+
+
+
+SELECT * FROM  equipments e WHERE equipment_type_id = 214
+
+	
+	
+	SELECT *  from  equipment_type_lk etl 
+	
+	
+	SELECT * from equipment_category_lk ecl 
+	
+	UPDATE equipment_type_lk set equipment_category_id = 1 WHERE  equipment_type_id = 214
+	
+	UPDATE equipments set equipment_category_id = NULL WHERE  equipment_type_id = 214
+
+	
+	
+	
+    select * from equipments e
+    
+     order by equipment_id  
+
+DESC limit 1 ;
+
+
+
+
+
+
+ALTER TABLE equipments DROP FOREIGN KEY equipment_category_id;
+
+ALTER TABLE equipments DROP CONSTRAINT equipment_category_id;
+
+
+ALTER TABLE equipments DROP COLUMN equipment_category_id ;
+
+
+
+SELECT * from equipment_type_lk etl WHERE equipment_type_id = 218
+		
+
+desc equipment_category_lk 
+
+
+		
+		SELECT * FROM equipments WHERE equipment_id = 8425
+		
+
+
+		
+				select * FROM allocation_request_history arh WHERE allocation_request_id  = 1801
+		
+	          	update allocation_request_history set created_by = 27 where alloc_req_hstry_id = 
+		
+		
+		
+	SUM(IF(sfm_fixed_date IS NULL, TIME_TO_SEC(TIMEDIFF(CURRENT_TIMESTAMP(), sfm_date))+ 19800, TIME_TO_SEC(TIMEDIFF(sfm_fixed_date, sfm_date)))),
+	          	
+	          	
+	          	
+	select
+	alloc_req_eqp_dtl_id,
+	SUM(IF(sfm_fixed_date IS NULL, TIME_TO_SEC(TIMEDIFF(CURRENT_TIMESTAMP(), IF( sfm_date <= :startDate, sfm_date,:startDate)))+ 19800, 
+	TIME_TO_SEC(TIMEDIFF(IF(sfm_fixed_date >= DATE_ADD(:endDate, INTERVAL 1 DAY), :endDate, sfm_fixed_date), IF(sfm_date <= :startDate, :startDate, sfm_date))))),
+	sfm_date,
+	sfm_fixed_date
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id
+	
+	
+	
+	
+	
+	IF((sfm_date >= :startDate AND sfm_fixed_date >= :endDate),
+	
+	SELECT * from send_for_maintenance sfm 
+          	
+	          	SELECT
+	(
+	select
+		equipment_type_name
+	from
+		equipment_type_lk
+	where
+		equipment_type_id = e.equipment_type_id) equipment_type_name,
+	e.equipment_plate_no,
+	e.equipment_vincode,
+	p.project_format_id,
+	p.project_name,
+	IF (ared.return_date IS NULL,
+	DATEDIFF(CURRENT_DATE(), DATE(ared.alloc_req_eqp_dtl_date_of_arrival)),
+	DATEDIFF(ared.return_date, DATE(ared.alloc_req_eqp_dtl_date_of_arrival))) + 1 AS Days,
+	ard.alloc_request_trip,
+	DATE(ared.alloc_req_eqp_dtl_date_of_arrival),
+	ared.return_date,
+	ecl.equipment_category_name,
+	ared.alloc_req_eqp_dtl_id,
+	sfm.sfm_date,
+	sfm.sfm_fixed_date 
+FROM
+	equipment_category_lk ecl
+JOIN equipment_type_lk etl ON
+	ecl.equipment_category_id = etl.equipment_category_id
+JOIN equipments e ON
+	etl.equipment_type_id = e.equipment_type_id
+JOIN alloc_req_equip_dtl ared ON
+	e.equipment_id = ared.equipment_id
+JOIN send_for_maintenance sfm  ON
+	ared.alloc_req_eqp_dtl_id = sfm.alloc_req_eqp_dtl_id 
+JOIN allocation_request_dtl ard ON
+	ared.alloc_req_dtl_id = ard.alloc_req_dtl_id
+JOIN allocation_request ar on
+	ard.allocation_request_id = ar.allocation_request_id
+JOIN projects p ON
+	ar.project_id = p.project_id
+	WHERE
+	(ared.alloc_req_eqp_dtl_date_of_arrival <= :enddDate
+		AND (ared.return_date >= :startDate
+			OR ared.return_date IS NULL))
+	AND ared.alloc_trj_req_dtl_eqp_status in(17, 9, 10, 18, 4, 13,)
+	AND p.project_id = :projectId 
+
+	          	
+	SELECT * FROM allocation_operation ao 
+	
+	select
+	alloc_req_eqp_dtl_id,
+	SUM(IF(sfm_fixed_date IS NULL, TIME_TO_SEC(TIMEDIFF(CURRENT_TIMESTAMP(), sfm_date))+ 19800, TIME_TO_SEC(TIMEDIFF(sfm_fixed_date, sfm_date))))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id
+
+	
+	
+	
+	select
+	alloc_req_eqp_dtl_id,
+	DATEDIFF(:startDate , DATE_ADD(:endDate, INTERVAL 1 DAY)) As dateRangeDiff,
+	SUM(IF(sfm_fixed_date IS NULL, 
+	TIME_TO_SEC(TIMEDIFF(CURRENT_TIMESTAMP(), IF(sfm_date >= :startDate, ((:startDate, sfm_date), dateRangeDiff), dateRangeDiff )))+ 19800,
+	TIME_TO_SEC(TIMEDIFF(IF(sfm_fixed_date <= DATE_ADD(:endDate, INTERVAL 1 DAY), ((sfm_fixed_date , :endDate), dateRangeDiff))))))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id
+	
+	
+	
+	
+	
+select
+	alloc_req_eqp_dtl_id,
+	SUM(IF(sfm_fixed_date IS NULL, TIME_TO_SEC(TIMEDIFF(CURRENT_TIMESTAMP(), sfm_date))+ 19800, TIME_TO_SEC(TIMEDIFF(sfm_fixed_date, sfm_date))))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id
+
+	
+	
+	SELECT * FROM alloc_req_equip_dtl ared WHERE alloc_req_eqp_dtl_id = 2690
+	
+	
+	
+	
+	SELECT * from equipments e  WHERE equipment_plate_no = '1T0704044'
+	
+	
+	
+	SELECT * FROM  send_for_maintenance sfm 
+	
+	
+		SELECT * FROM alloc_req_equip_dtl ared WHERE alloc_req_eqp_dtl_id = 2700
+		
+		
+		
+		
+		ALTER TABLE send_for_maintenance add column fix_or_return varchar(20);
+
+		
+		
+		
+		
+		
+		
+
+	
+select
+	alloc_req_eqp_dtl_id,
+	SUM(IF(:startDate <= sfm_date OR DATE_ADD(:endDate, INTERVAL 1 DAY) <= sfm_fixed_date,  
+	IF(sfm_fixed_date IS NULL, 
+	TIME_TO_SEC(TIMEDIFF(IF(DATE_ADD(:endDate, INTERVAL 1 DAY) <= CURRENT_TIMESTAMP(), DATE_ADD(:endDate, INTERVAL 1 DAY), CURRENT_TIMESTAMP()), IF( sfm_date <= :startDate, :startDate, sfm_date))), 
+	TIME_TO_SEC(TIMEDIFF(IF(sfm_fixed_date >= DATE_ADD(:endDate, INTERVAL 1 DAY), DATE_ADD(:endDate, INTERVAL 1 DAY), sfm_fixed_date), 
+	IF(sfm_date <= :startDate, :startDate, sfm_date)))), DATEDIFF(DATE_ADD(:endDate, INTERVAL 1 DAY), :startDate)))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id 
+	
+	
+	
+	
+	SELECT * FROM send_for_maintenance sfm 
+	
+	
+	
+	==========================================
+	
+	SELECT
+	(
+	select
+		equipment_type_name
+	from
+		equipment_type_lk
+	where
+		equipment_type_id = e.equipment_type_id) equipment_type_name,
+	e.equipment_plate_no,
+	e.equipment_vincode,
+	p.project_format_id,
+	p.project_name,
+	IF (ared.return_date IS NULL,
+	DATEDIFF(CURRENT_DATE(), DATE(ared.alloc_req_eqp_dtl_date_of_arrival)),
+	DATEDIFF(ared.return_date, DATE(ared.alloc_req_eqp_dtl_date_of_arrival))) + 1 AS Days,
+	ard.alloc_request_trip,
+	DATE(ared.alloc_req_eqp_dtl_date_of_arrival),
+	ared.return_date,
+	ecl.equipment_category_name,
+	ared.alloc_req_eqp_dtl_id
+FROM
+	equipment_category_lk ecl
+JOIN equipment_type_lk etl ON
+	ecl.equipment_category_id = etl.equipment_category_id
+JOIN equipments e ON
+	etl.equipment_type_id = e.equipment_type_id
+JOIN alloc_req_equip_dtl ared ON
+	e.equipment_id = ared.equipment_id
+JOIN allocation_request_dtl ard ON
+	ared.alloc_req_dtl_id = ard.alloc_req_dtl_id
+JOIN allocation_request ar on
+	ard.allocation_request_id = ar.allocation_request_id
+JOIN projects p ON
+	ar.project_id = p.project_id
+	WHERE
+	(ared.alloc_req_eqp_dtl_date_of_arrival <= :enddDate
+		AND (ared.return_date >= :startDate
+			OR ared.return_date IS NULL))
+	AND p.project_id = :projectId 	
+			
+			
+			SELECT * FROM send_for_maintenance sfm 
+			
+			
+			
+			SELECT  * FROM projects p 
+			
+			
+				
+			
+			AND ecl.equipment_category_id = :categoryId
+			
+ SELECT
+	(
+	select
+		equipment_type_name
+	from
+		equipment_type_lk
+	where
+		equipment_type_id = e.equipment_type_id) equipment_type_name,
+	e.equipment_plate_no,
+	e.equipment_vincode,
+	p.project_format_id,
+	p.project_name,
+	IF (ared.return_date IS NULL,
+	DATEDIFF(CURRENT_DATE(), DATE(ared.alloc_req_eqp_dtl_date_of_arrival)),
+		IF( sfm.fix_or_return = 'R', DATEDIFF(sfm.sfm_date , DATE(ared.alloc_req_eqp_dtl_date_of_arrival)) ,
+		DATEDIFF(ared.return_date, DATE(ared.alloc_req_eqp_dtl_date_of_arrival)))) + 1 AS Days,
+	ard.alloc_request_trip,
+	DATE(ared.alloc_req_eqp_dtl_date_of_arrival),
+	ared.return_date,
+	ecl.equipment_category_name,
+	ared.alloc_req_eqp_dtl_id
+FROM
+	equipment_category_lk ecl
+JOIN equipment_type_lk etl ON
+	ecl.equipment_category_id = etl.equipment_category_id
+JOIN equipments e ON
+	etl.equipment_type_id = e.equipment_type_id
+JOIN alloc_req_equip_dtl ared ON
+	e.equipment_id = ared.equipment_id
+JOIN allocation_request_dtl ard ON
+	ared.alloc_req_dtl_id = ard.alloc_req_dtl_id
+JOIN send_for_maintenance sfm  ON
+	ared.alloc_req_eqp_dtl_id = sfm.alloc_req_eqp_dtl_id 
+JOIN allocation_request ar on
+	ard.allocation_request_id = ar.allocation_request_id
+JOIN projects p ON
+	ar.project_id = p.project_id
+	WHERE
+	(ared.alloc_req_eqp_dtl_date_of_arrival <= :enddDate
+		AND (ared.return_date >= :startDate
+			OR ared.return_date IS NULL))
+-- 	AND ared.alloc_trj_req_dtl_eqp_status in(17, 9, 10, 18, 4, 13)
+	AND p.project_id = :projectId 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	AND ecl.equipment_category_id = :categoryId
+	
+	
+	
+	
+	SELECT * FROM send_for_maintenance sfm 
+	
+	SELECT * FROM projects p 
+	
+	
+	
+	
+	
+	WHERE
+	(ared.alloc_req_eqp_dtl_date_of_arrival <= :enddDate
+		AND (ared.return_date >= :startDate
+			OR ared.return_date IS NULL)) AND p.project_id = :projectId 
+			
+			
+			
+			
+	
+		
+	select
+	alloc_req_eqp_dtl_id,                       15                   30
+	SUM(IF(:startDate <= sfm_date OR DATE_ADD(:endDate, INTERVAL 1 DAY) >= sfm_fixed_date,  
+	IF(sfm_fixed_date IS NULL, 
+	TIME_TO_SEC(TIMEDIFF(IF(:endDate <= CURRENT_TIMESTAMP(), :endDate, CURRENT_TIMESTAMP()), IF( sfm_date <= :startDate, :startDate, sfm_date))), 
+	TIME_TO_SEC(TIMEDIFF(IF(sfm_fixed_date >= :endDate, :endDate, sfm_fixed_date), 
+	IF(sfm_date <= :startDate, :startDate, sfm_date)))), DATEDIFF(:endDate, :startDate)))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id  
+	
+	SELECT * FROM send_for_maintenance sfm 
+	
+		
+	s--01-12-21  ---sfm---28-12  end---06-1-22  
+	
+	
+	select
+	alloc_req_eqp_dtl_id,
+	SUM(IF(:startDate <= sfm_date OR DATE_ADD(:endDate, INTERVAL 1 DAY) <= sfm_fixed_date, IF(sfm_fixed_date IS NULL, TIME_TO_SEC(TIMEDIFF(IF(DATE_ADD(:endDate, INTERVAL 1 DAY) <= CURRENT_TIMESTAMP(), DATE_ADD(:endDate, INTERVAL 1 DAY), CURRENT_TIMESTAMP()), IF( sfm_date <= :startDate, :startDate, sfm_date))), TIME_TO_SEC(TIMEDIFF(IF(sfm_fixed_date >= DATE_ADD(:endDate, INTERVAL 1 DAY), DATE_ADD(:endDate, INTERVAL 1 DAY), sfm_fixed_date), IF(sfm_date <= :startDate, :startDate, sfm_date)))), DATEDIFF(DATE_ADD(:endDate, INTERVAL 1 DAY), :startDate)))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id
+
+	
+	=======================================================================
+	
+	
+	
+	
+	
+====================================================================================================
+
+    SELECT * FROM allocation_request_dtl ard where alloc_req_external_hire = 1 
+    
+    
+    SELECT * FROM alloc_req_equip_dtl ared where alloc_req_dtl_id in 
+    
+   
+    SELECT * FROM allocation_request_dtl ard where alloc_req_dtl_id 
+
+
+   	UPDATE allocation_request_dtl set alloc_req_external_hire = 0 WHERE alloc_req_dtl_id  in 
+   	
+   	
+   	SELECT COUNT(*)  from allocation_request_dtl ard WHERE alloc_req_external_hire = 1 AND ard.created_at BETWEEN '2021-12-01 00:00:00' AND '2021-12-31  23:59:59'  		
+	
+   	
+    SELECT COUNT(*)  from allocation_request_dtl ard WHERE alloc_req_external_hire = 0 AND ard.created_at BETWEEN '2021-12-01 00:00:00' AND '2021-12-31  23:59:59'  
+
+   	
+====================================================================================================
+	
+	
+	
+	SELECT * FROM alloc_req_equip_dtl ared WHERE alloc_req_dtl_id BETWEEN 1 AND 4149 GROUP  BY alloc_req_dtl_id 
+	
+
+	
+     SELECT * FROM allocation_request_dtl ard WHERE allocation_request_id = 1839
+     
+     
+    SELECT * FROM allocation_request_dtl ard where alloc_req_external_hire = 1 
+    
+    
+    AND ard.created_at BETWEEN '2021--07' AND '2022-01-10'  		
+    
+    
+    GROUP  BY  allocation_request_id 
+    
+    
+    SELECT * FROM allocation_request 
+    
+    
+    desc allocation_request_dtl 
+    
+
+     SELECT ar.allocation_request_id FROM allocation_request ar WHERE  ar.created_at BETWEEN '2021-12-01 00:00:00' AND '2021-12-31  23:59:59'  		
+
+
+
+	
+     
+     SELECT * FROM ext_equipment_spec ees 
+     
+	
+	
+	WHERE alloc_req_dtl_id in (3992,
+3993,
+4028,
+4029,
+4051,
+4122,
+4124,
+4128)
+
+	
+	  
+	  SELECT * FROM progress_status_lk psl 
+	  
+	  
+	  select * FROM	allocation_request_dtl ard join alloc_req_equip_dtl ared on ard.alloc_req_dtl_id = ared.alloc_req_dtl_id
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  SELECT ard.allocation_request_id FROM allocation_request_dtl ard WHERE  ard.created_at BETWEEN '2021-12-01' AND '2021-12-31'  GROUP BY allocation_request_id 		
+
+	  
+	  
+	  SELECT ar.allocation_request_id FROM allocation_request ar WHERE ar.created_at BETWEEN '2021-12-01' AND '2021-12-31'  		
+
+	  
+	 
+	
+	
+	
+	
+	select
+	alloc_req_eqp_dtl_id,
+	SUM(IF(sfm_fixed_date IS NULL,
+	TIME_TO_SEC(TIMEDIFF(IF((DATE_ADD(:endDate, INTERVAL 1 DAY) <= CURRENT_TIMESTAMP()), 
+	DATE_ADD(:endDate, INTERVAL 1 DAY), DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T')),IF(sfm_date <= :startDate, :startDate, sfm_date))),
+	TIME_TO_SEC(TIMEDIFF(IF(sfm_fixed_date >= DATE_ADD(:endDate, INTERVAL 1 DAY), DATE_ADD(:endDate, INTERVAL 1 DAY), sfm_fixed_date),IF(sfm_date <= :startDate, :startDate , sfm_date)))))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id
+	
+	
+	
+	
+	
+	
+	select
+	alloc_req_eqp_dtl_id,
+	DATE_FORMAT(CURRENT_TIMESTAMP() + 19800, '%Y-%m-%d %T'),
+	SUM(IF(sfm_fixed_date IS NULL, TIME_TO_SEC(TIMEDIFF(IF((DATE_ADD(:endDate, INTERVAL 1 DAY) <= DATE_FORMAT(ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), "05:30:00"), '%Y-%m-%d %T')), DATE_ADD(:endDate, INTERVAL 1 DAY), 
+	DATE_FORMAT(ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), "05:30:00"), '%Y-%m-%d %T')), IF(sfm_date <= :startDate, :startDate, sfm_date))), TIME_TO_SEC(TIMEDIFF(IF(sfm_fixed_date >= DATE_ADD(:endDate, INTERVAL 1 DAY), DATE_ADD(:endDate, INTERVAL 1 DAY), sfm_fixed_date), IF(sfm_date <= :startDate, :startDate , sfm_date)))))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id
+	
+	
+	
+	
+	SELECT ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), "05:30:00")
+	
+	
+	+ 19800
+	
+		SELECT CURRENT_TIMESTAMP(ADDTIME(NOW() , "2");)
+		
+		select now() + interval '1 hour';
+
+	select DATE_ADD(hour, '5', now());
+
+
+SELECT  CURRENT_TIMESTAMP
+
+	select * from allocation_operation ao 
+	
+	
+	
+	
+	
+
+
+	SELECT * FROM send_for_maintenance sfm WHERE alloc_req_eqp_dtl_id = 2739
+	
+	
+SELECT NOW()
+
+
+
+
+
+
+
+
+
+
+select
+	alloc_req_eqp_dtl_id,
+	SUM(IF(sfm_fixed_date IS NULL,
+	TIME_TO_SEC(TIMEDIFF(IF((DATE_ADD(:endDate, INTERVAL 1 DAY) <= ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), "05:30:00")), DATE_ADD(:endDate, INTERVAL 1 DAY),
+	ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), "05:30:00")), IF(sfm_date <= :startDate, :startDate, sfm_date))), 
+	TIME_TO_SEC(TIMEDIFF(IF(sfm_fixed_date >= DATE_ADD(:endDate, INTERVAL 1 DAY), DATE_ADD(:endDate, INTERVAL 1 DAY), sfm_fixed_date), IF(sfm_date <= :startDate, :startDate , sfm_date)))))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id
+	
+	
+	SELECT DATEDIFF('2022-01-04  16:45:00', '2021-09-04  00:00:00'), TIMEDIFF('2022-01-04  16:45:00', '2021-09-04  00:00:00')
+	
+	
+	
+	SELECT
+	(
+	select
+		equipment_type_name
+	from
+		equipment_type_lk
+	where
+		equipment_type_id = e.equipment_type_id) equipment_type_name,
+	e.equipment_plate_no,
+	e.equipment_vincode,
+	p.project_format_id,
+	p.project_name,
+	ared.return_date,
+	ecl.equipment_category_name,
+	ared.alloc_req_eqp_dtl_id
+FROM
+	equipment_category_lk ecl
+JOIN equipment_type_lk etl ON
+	ecl.equipment_category_id = etl.equipment_category_id
+JOIN equipments e ON
+	etl.equipment_type_id = e.equipment_type_id
+JOIN alloc_req_equip_dtl ared ON
+	e.equipment_id = ared.equipment_id
+JOIN allocation_request_dtl ard ON
+	ared.alloc_req_dtl_id = ard.alloc_req_dtl_id
+JOIN allocation_request ar on
+	ard.allocation_request_id = ar.allocation_request_id
+JOIN projects p ON
+	ar.project_id = p.project_id WHERE (ared.alloc_req_eqp_dtl_date_of_arrival <= '2021-12-31'
+		AND (ared.return_date >= '2021-12-01'
+			OR ared.return_date IS NULL))
+	AND p.project_id = '217'
+	AND ecl.equipment_category_id = '1'
+
+
+
+
+SELECT * FROM send_for_maintenance sfm 
+
+
+
+
+
+
+
+select
+	alloc_req_eqp_dtl_id,
+	SUM(IF(sfm_fixed_date IS NULL, 
+	TIME_TO_SEC(IF((DATE_ADD(:endDate, INTERVAL 1 DAY) <= ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), '05:30:00')),
+	TIMEDIFF(DATE_ADD(:endDate, INTERVAL 1 DAY)), 
+	TIMEDIFF(ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), '05:31:00'))), IF(sfm_date <= :startDate, TIMEDIFF(:startDate), TIMEDIFF(sfm_date))),
+	TIME_TO_SEC(TIMEDIFF(IF(sfm_fixed_date >= DATE_ADD(:endDate, INTERVAL 1 DAY), DATE_ADD(:endDate, INTERVAL 1 DAY), sfm_fixed_date), IF(sfm_date <= :startDate, :startDate , sfm_date)))))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id
+
+
+
+
+SELECT  ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), '05:31:00')
+
+select * FROM allocation_request_dtl ard WHERE allocation_request_id = 1852
+		
+		select * FROM alloc_req_equip_dtl ared  WHERE alloc_req_dtl_id = 4211
+		
+
+
+
+SELECT * FROM alloc_req_equip_dtl ared 
+
+WHERE alloc_req_eqp_dtl_id = 2877
+
+
+SELECT * FROM alloc_req_equip_dtl ared WHERE  alloc_req_eqp_dtl_id = 2877
+
+
+SELECT TIMEDIFF('2021-12-31 00:00:00' ,'2021-10-30 16:41:00')
+
+SELECT TIMEDIFF('2021-12-31 00:00:00' ,'2021-11-20 16:41:00')
+
+
+
+SELECT
+	alloc_req_eqp_dtl_id,
+	DATE_ADD(:endDate, INTERVAL 1 DAY), sfm_date ,
+	DATEDIFF(DATE_ADD(:endDate, INTERVAL 1 DAY),sfm_date ) * 24 * 3600,
+	SUM(IF(sfm_fixed_date IS NULL, 
+	(TIMEDIFF(IF((DATE_ADD(:endDate, INTERVAL 1 DAY) <= CURRENT_TIMESTAMP()), 
+	DATE_ADD(:endDate, INTERVAL 1 DAY), ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%M-%d %T'), '05:30:00')), 
+	IF(sfm_date <= :startDate, :startDate, sfm_date))),
+	TIME_TO_SEC(DATEDIFF(IF(sfm_fixed_date >= DATE_ADD(:endDate, INTERVAL 1 DAY), DATE_ADD(:endDate, INTERVAL 1 DAY), sfm_fixed_date), IF(sfm_date <= :startDate, :startDate , sfm_date)))))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id
+	
+	
+	SELECT
+	alloc_req_eqp_dtl_id,
+	SUM(IF(sfm_fixed_date IS NULL, 
+	TIME_TO_SEC(TIMEDIFF(IF((DATE_ADD(:endDate, INTERVAL 1 DAY) <= ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), '05:30:00')), DATE_ADD(:endDate, INTERVAL 1 DAY), 
+	ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), '05:30:00')), IF(sfm_date <= :startDate, :startDate, sfm_date))), 
+	TIME_TO_SEC(TIMEDIFF(IF(sfm_fixed_date >= DATE_ADD(:endDate, INTERVAL 1 DAY), 
+	DATE_ADD(:endDate, INTERVAL 1 DAY), sfm_fixed_date), IF(sfm_date <= :startDate, :startDate , sfm_date)))))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds)
+	AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= :startDate
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id
+	
+	
+	
+	
+SELECT alloc_req_eqp_dtl_id, SUM(IF(sfm_fixed_date IS NULL, TIMESTAMPDIFF(SECOND, IF(sfm_date <= :startDate, :startDate, sfm_date), IF((DATE_ADD(:endDate, INTERVAL 1 DAY) <= ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), '05:30:00')), DATE_ADD(:endDate, INTERVAL 1 DAY), ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), '05:31:00'))), TIMESTAMPDIFF(SECOND, IF(sfm_date <= :startDate, :startDate , sfm_date), (IF(sfm_fixed_date >= DATE_ADD(:endDate, INTERVAL 1 DAY), DATE_ADD(:endDate, INTERVAL 1 DAY), sfm_fixed_date))))) FROM send_for_maintenance WHERE alloc_req_eqp_dtl_id in (:allocReqEqpDtlIds) AND (sfm_date <= DATE_ADD(:endDate, INTERVAL 1 DAY)	AND (sfm_fixed_date >= :startDate OR sfm_fixed_date IS NULL)) GROUP BY alloc_req_eqp_dtl_id
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+SELECT
+	alloc_req_eqp_dtl_id,
+	SUM(IF(sfm_fixed_date IS NULL,
+	86400 * (DATEDIFF(IF((DATE_ADD('2022-01-12', INTERVAL 1 DAY) <= ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), '05:30:00')), 
+	DATE_ADD('2022-01-12', INTERVAL 1 DAY), ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), '05:31:00')), IF(sfm_date <= '2021-09-15', '2021-09-15', sfm_date))), 
+	86400 * (DATEDIFF(IF(sfm_fixed_date >= DATE_ADD('2022-01-12', INTERVAL 1 DAY), DATE_ADD('2022-01-12', INTERVAL 1 DAY), sfm_fixed_date), IF(sfm_date <= '2021-09-15', '2021-09-15' , sfm_date)))))
+FROM
+	send_for_maintenance
+WHERE
+	alloc_req_eqp_dtl_id in (2876)
+	AND (sfm_date <= DATE_ADD('2022-01-12', INTERVAL 1 DAY)
+		AND (sfm_fixed_date >= '2021-09-15'
+			OR sfm_fixed_date IS NULL))
+GROUP BY
+	alloc_req_eqp_dtl_id
+
+
+	
+	SELECT ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), '04:00:00')
+
+SELECT alloc_req_eqp_dtl_id, SUM(IF(sfm_fixed_date IS NULL, TIMESTAMPDIFF(SECOND, IF(sfm_date <= '2021-09-09', '2021-09-09', sfm_date), 
+IF((DATE_ADD('2022-01-12', INTERVAL 1 DAY) <= ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), '05:30:00')), DATE_ADD('2022-01-12', INTERVAL 1 DAY),
+ADDTIME(DATE_FORMAT(CURRENT_TIMESTAMP(), '%Y-%m-%d %T'), '05:30:00'))), TIMESTAMPDIFF(SECOND, IF(sfm_date <= '2021-09-09', '2021-09-09' , sfm_date), (IF(sfm_fixed_date >=
+DATE_ADD('2022-01-12', INTERVAL 1 DAY), DATE_ADD('2022-01-12', INTERVAL 1 DAY), sfm_fixed_date)))))
+FROM
+send_for_maintenance
+WHERE
+alloc_req_eqp_dtl_id in (2876)
+AND (sfm_date <= DATE_ADD('2022-01-12', INTERVAL 1 DAY)
+AND (sfm_fixed_date >= '2021-09-09'
+OR sfm_fixed_date IS NULL))
+GROUP BY
+alloc_req_eqp_dtl_id
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+SELECT
+	ar.allocation_request_id ,
+	ard.alloc_req_dtl_id ,
+	p.project_format_id ,
+	ard.alloc_req_external_hire, 
+	p.project_name,
+	e.equipment_plate_no,
+	e.equipment_vincode
+FROM
+	projects p
+JOIN allocation_request ar on
+		p.project_id = ar.project_id
+JOIN allocation_request_dtl ard on
+		ar.allocation_request_id = ard.allocation_request_id
+JOIN equipment_type_lk etl on
+		ard.equipment_type_id = etl.equipment_type_id
+JOIN equipments e on
+		ard.equipment_type_id = e.equipment_type_id
+WHERE
+	ard.alloc_req_external_hire = 0
+	AND ard.created_at BETWEEN '2022-01-01' AND '2022-01-13'
+GROUP BY
+	alloc_req_dtl_id 
+
+	
+	
+	
+	
+	
+====================================================================================================
+
+    SELECT
+	*
+FROM
+	allocation_request_dtl ard
+where
+	alloc_req_external_hire = 1 
+    
+    
+    SELECT
+	*
+FROM
+	alloc_req_equip_dtl ared
+where
+	alloc_req_dtl_id in 
+    
+   
+    SELECT
+	*
+FROM
+	allocation_request_dtl ard
+WHERE
+	alloc_req_external_hire = 1
+	AND ard.created_at BETWEEN '2021-12-01 00:00:00' AND '2021-12-31  23:59:59' 
+
+
+   	UPDATE
+	allocation_request_dtl
+set
+	alloc_req_external_hire = 0
+WHERE
+	alloc_req_dtl_id in 
+   	
+   	
+   	SELECT
+	COUNT(*)
+from
+	allocation_request_dtl ard
+WHERE
+	alloc_req_external_hire = 1
+	AND ard.created_at BETWEEN '2021-12-01 00:00:00' AND '2021-12-31  23:59:59'  		
+	
+   	
+    SELECT
+	COUNT(*)
+from
+	allocation_request_dtl ard
+WHERE
+	alloc_req_external_hire = 0
+	AND ard.created_at BETWEEN '2021-12-01 00:00:00' AND '2021-12-31  23:59:59'  
+
+   	
+====================================================================================================
+
+
+
+
+SHOW tables;
+
+SELECT * FROM allocation_request ar WHERE allocation_request_id = 1884
+
+
+SELECT * FROM allocation_request_dtl ard WHERE allocation_request_id = 1887
+
+
+SELECT * FROM alloc_req_equip_dtl ared WHERE alloc_req_dtl_id = 4258
+
+
+SELECT * FROM progress_status_lk psl 	
+
+
+SELECT * FROM alloc_req_equip_dtl ared 
+
+WHERE return_date is null
+
+
+
+	
+	update allocation_request_dtl_del set progress_status_id = 4 WHERE allocation_request_id = 1884
+	
+	
+	
+	
+	
+	select * from application_user au 
+	
+	
+	
+SELECT
+	ard.allocation_request_id,
+	ared.alloc_req_eqp_dtl_id, 
+	e.equipment_vincode,
+	e.equipment_plate_no,
+	etl.equipment_type_name,
+    DATE(ared.alloc_req_eqp_dtl_date_of_arrival),
+    ared.return_date
+ FROM
+	equipment_type_lk etl
+JOIN equipments e ON
+	etl.equipment_type_id = e.equipment_type_id
+JOIN alloc_req_equip_dtl ared ON
+	e.equipment_id = ared.equipment_id
+JOIN allocation_request_dtl ard ON
+	ared.alloc_req_dtl_id = ard.alloc_req_dtl_id
+JOIN allocation_request ar ON
+	ard.allocation_request_id = ar.allocation_request_id 
+WHERE return_date is NULL AND alloc_trj_req_dtl_eqp_status IN (13,16,14,1);
+
+
+select * from allocation_operation ao 
+
+
+(13,16,14,18,12,1);
+	
+	
+	select COUNT(*) from alloc_req_equip_dtl ared WHERE return_date is NULL AND alloc_trj_req_dtl_eqp_status in (13,16,14,18,12,1);
+
+	
+
+
+
+SELECT
+	(
+	select
+		equipment_type_name
+	from
+		equipment_type_lk
+	where
+		equipment_type_id = e.equipment_type_id) equipment_type_name,
+	e.equipment_plate_no,
+	e.equipment_vincode,
+	p.project_format_id,
+	p.project_name,
+	IF (ared.return_date IS NULL,
+	DATEDIFF(CURRENT_DATE(), DATE(ared.alloc_req_eqp_dtl_date_of_arrival)),
+	DATEDIFF(ared.return_date, DATE(ared.alloc_req_eqp_dtl_date_of_arrival))) + 1 AS Days,
+	ard.alloc_request_trip,
+	DATE(ared.alloc_req_eqp_dtl_date_of_arrival),
+	ared.return_date,
+	ecl.equipment_category_name,
+	ared.alloc_req_eqp_dtl_id
+FROM
+	equipment_category_lk ecl
+JOIN equipment_type_lk etl ON
+	ecl.equipment_category_id = etl.equipment_category_id
+JOIN equipments e ON
+	etl.equipment_type_id = e.equipment_type_id
+JOIN alloc_req_equip_dtl ared ON
+	e.equipment_id = ared.equipment_id
+JOIN allocation_request_dtl ard ON
+	ared.alloc_req_dtl_id = ard.alloc_req_dtl_id
+JOIN allocation_request ar on
+	ard.allocation_request_id = ar.allocation_request_id
+JOIN projects p ON
+	ar.project_id = p.project_id
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	SELECT
+	ar.allocation_request_id,
+	p.project_format_id,
+	p.project_name,
+	GROUP_CONCAT(equipment_type_name  ORDER BY equipment_type_name  ASC SEPARATOR ', ') AS equipment_type_name,
+	psl.progress_status_name
+FROM equipment_type_lk etl JOIN allocation_request_dtl ard ON etl.equipment_type_id = ard.equipment_type_id JOIN allocation_request ar ON ard.allocation_request_id = ar.allocation_request_id JOIN projects p ON ar.project_id = p.project_id JOIN progress_status_lk psl ON ar.progress_status_id = psl.progress_status_id 
+	WHERE p.project_id = 248
+	GROUP BY allocation_request_id
+
+	
+	
+	SELECT
+	ar.allocation_request_id,
+	p.project_format_id,
+	p.project_name,
+	GROUP_CONCAT(equipment_type_name ORDER BY equipment_type_name ASC SEPARATOR ', ') AS equipment_type_name,
+	psl.progress_status_name
+FROM
+	equipment_type_lk etl
+JOIN allocation_request_dtl ard ON
+	etl.equipment_type_id = ard.equipment_type_id
+JOIN allocation_request ar ON
+	ard.allocation_request_id = ar.allocation_request_id
+JOIN projects p ON
+	ar.project_id = p.project_id
+JOIN progress_status_lk psl ON
+	ar.progress_status_id = psl.progress_status_id WHERE p.project_id = 248
+	GROUP BY allocation_request_id
+
+	
+	
+	
+	 STUFF(
+         (SELECT DISTINCT ',' + etl.equipment_type_name
+          FROM equipment_type_lk etl JOIN allocation_request_dtl ard on etl.equipment_type_id = ard.equipment_type_id JOIN allocation_request ar on ard.allocation_request_id = ar.allocation_request_id
+          WHERE ard.allocation_request_id = ar.allocation_request_id
+          FOR XML PATH (''))
+          , 1, 1, '')  AS EquipmentTypeName,
+	
+	
+	SELECT 
+   SS.SEC_NAME,
+   STUFF((SELECT '; ' + US.USR_NAME 
+          FROM USRS US
+          WHERE US.SEC_ID = SS.SEC_ID
+          FOR XML PATH('')), 1, 1, '') [SECTORS/USERS]
+FROM SALES_SECTORS SS
+GROUP BY SS.SEC_ID, SS.SEC_NAME
+ORDER BY 1
+	
+	
+
+
+(SELECT ', ' + etl.equipment_type_name
+    FROM equipment_type_lk etl JOIN allocation_request_dtl ard on etl.equipment_type_id = ard.equipment_type_id JOIN allocation_request ar on ard.allocation_request_id = ar.allocation_request_id
+    WHERE ard.allocation_request_id = ar.allocation_request_id
+    FOR XML PATH('')) EquipmentTypeName,
+
+
+
+
+
+
+	SELECT 
+   SS.SEC_NAME, 
+   (SELECT ', ' + etl.equipment_type_name
+    FROM equipment_type_lk etl JOIN allocation_request_dtl ard on etl.equipment_type_id = ard.equipment_type_id JOIN allocation_request ar on ard.allocation_request_id = ar.allocation_request_id
+    WHERE ard.allocation_request_id = ar.allocation_request_id
+    FOR XML PATH('')) EquipmentTypeName
+FROM SALES_SECTORS SS
+GROUP BY SS.SEC_ID, SS.SEC_NAME
+ORDER BY 1
+	
+	
+	
+	
+	desc progress_status_lk
+	
+	
+	
+	
+	select * from progress_status_lk psl 
+	
+	
+INSERT INTO progress_status_lk VALUES(19,'Deleted',0);
+
+
+SELECT * FROM allocation_request_dtl_del
+
+desc alloc_req_equip_dtl
+
+
+
+
+SELECT
+	a.`equipment_id`,
+	CASE
+		WHEN a.equipment_status = '1' THEN 'Active'
+		WHEN a.equipment_status = '3' THEN 'Inactive'
+		WHEN a.equipment_status = '4' THEN 'Send to maintenance'
+		WHEN a.equipment_status = '9' THEN 'Dispatched'
+		WHEN a.equipment_status = '10' THEN 'In-operated'
+		WHEN a.equipment_status = '12' THEN 'To Be Returned'
+		WHEN a.equipment_status = '13' THEN 'To Be Replaced'
+		WHEN a.equipment_status = '14' THEN 'Maintenance' WHEN a.equipment_status = '16' THEN 'Replaced' WHEN a.equipment_status = '17' THEN 'Assigned' ELSE 'Equipment Returned'
+	END AS STATUS,
+	a.`equipment_plate_no`,
+	c.`equipment_type_name`,
+	a.`equipment_status`,
+	a.`equipment_alloc_status`,
+	e.`user_name`,
+	DATE_FORMAT(a.`created_at`, '%d %M %Y'),
+	ecl.`equipment_category_name`
+FROM
+	`equipments` a
+JOIN `equipment_type_lk` c ON
+	a.`equipment_type_id` = c.`equipment_type_id`
+JOIN `equipment_category_lk` ecl ON
+	c.`equipment_category_id` = ecl.`equipment_category_id`
+JOIN `allocation_operation` d ON
+	d.`operation_id` = a.`equipment_status`
+JOIN `application_user` e ON
+	e.`user_id` = a.`created_by`
+
+
+selle
+
+
+
+
+SELECT e.equipment_id, e.equipment_vincode, e.equipment_plate_no, ecl.equipment_category_name, etl.equipment_type_name, CASE WHEN e.equipment_status = '1' THEN 'Active' WHEN e.equipment_status = '3' THEN 'Inactive' WHEN e.equipment_status = '4' THEN 'Send to maintenance' WHEN e.equipment_status = '9' THEN 'Dispatched'	WHEN e.equipment_status = '10' THEN 'In-operated' WHEN e.equipment_status = '12' THEN 'To Be Returned' WHEN e.equipment_status = '13' THEN 'To Be Replaced' WHEN e.equipment_status = '14' THEN 'Maintenance' WHEN e.equipment_status = '16' THEN 'Replaced' WHEN e.equipment_status = '17' THEN 'Assigned' ELSE 'Equipment Returned' END AS STATUS FROM equipment_category_lk ecl JOIN equipment_type_lk etl ON ecl.equipment_category_id = etl.equipment_category_id JOIN equipments e ON etl.equipment_type_id = e.equipment_type_id JOIN allocation_operation ao ON e.equipment_status = ao.operation_id  
+
+WHERE etl.equipment_type_id = 110 AND  e.equipment_status = 14
+
+
+WHERE
+   
+   
+   
+   GROUP BY equipment_id ORDER BY equipment_id 
+   
+   
+   WHERE ared.alloc_trj_req_dtl_eqp_status = 1  
+   
+   
+   WHERE etl.equipment_type_id = 110 AND ared.alloc_trj_req_dtl_eqp_status = 16 GROUP BY equipment_id
+
+
+   select * from equipments WHERE equipment_status = 6
+   
+   
+   
+   
+   
+
+   
+SELECT
+	p.project_format_id,
+	p.project_name,
+	el.emirate_name,
+	dl.division_name,
+	CASE WHEN p.project_status = 0 THEN 'Archieved' ELSE 'Active' END AS STATUS
+FROM
+	emirates_lk el
+JOIN projects p ON
+	el.emirate_id = p.emirate_id
+JOIN division_lk dl ON
+    p.division_id = dl.division_id  WHERE p.project_status = 0
+GROUP BY
+	project_format_id
+   
+  
+   
+SELECT
+	au.user_id,
+	au.user_name,
+	au.user_email,
+	ur.user_role_name,
+	CASE
+		WHEN au.user_status = 1 THEN 'Active'
+		WHEN au.user_status = -1 THEN 'Not activated'
+		ELSE 'Blocked'
+	END STATUS
+FROM
+	application_user au
+JOIN user_role ur ON
+	au.user_role_id = ur.user_role_id
+WHERE
+	ur.user_role_id = 2
+	AND au.user_status = 1
+GROUP BY
+	user_id ORDER  by  u
+
+
+DESC  projects 
+	
+	
+	
+	
+	SELECT
+	a.`equipment_id`,
+	CASE
+		WHEN a.`equipment_status` = '3' THEN 'Inactive'
+		WHEN a.`equipment_status` = '1' THEN 'Active'
+		WHEN a.`equipment_status` = '2' THEN 'Active'
+		WHEN (a.`equipment_status` = 9
+		AND a.`equipment_status` != '14'
+		AND a.`equipment_status` != '17') THEN 'Dispatched'
+		WHEN (a.`equipment_status` = '4'
+		AND a.`equipment_alloc_status` = '0') THEN 'Send to maintanance'
+		ELSE d.`operation_name_desc`
+	END AS STATUS,
+	a.`equipment_plate_no`,
+	c.`equipment_type_name`,
+	a.`equipment_status`,
+	a.`equipment_alloc_status`,
+	e.`user_name`,
+	DATE_FORMAT(a.`created_at`, '%d %M %Y'),
+	ecl.equipment_category_name
+FROM
+	`equipments` a
+JOIN `equipment_type_lk` c ON
+	a.`equipment_type_id` = c.`equipment_type_id`
+JOIN `allocation_operation` d ON
+	d.`operation_id` = a.`equipment_status`
+JOIN `application_user` e ON
+	e.`user_id` = a.`created_by`
+JOIN equipment_category_lk ecl ON
+	ecl.equipment_category_id = c.equipment_category_id
+ORDER BY
+	a.`equipment_id` DESC
+LIMIT ?,
+10
+
+	
+	
+	equipmentSummaryReportQuery = SELECT e.equipment_id, e.equipment_vincode, e.equipment_plate_no, ecl.equipment_category_name, etl.equipment_type_name, CASE WHEN e.equipment_status = '1' THEN 'Active' WHEN e.equipment_status = '3' THEN 'Inactive' WHEN e.equipment_status = '4' THEN 'Send to maintenance' WHEN e.equipment_status = '9' THEN 'Dispatched'	WHEN e.equipment_status = '10' THEN 'In-operated' WHEN e.equipment_status = '12' THEN 'To Be Returned' WHEN e.equipment_status = '13' THEN 'To Be Replaced' WHEN e.equipment_status = '14' THEN 'Maintenance' WHEN e.equipment_status = '16' THEN 'Replaced' WHEN e.equipment_status = '17' THEN 'Assigned' ELSE 'Equipment Returned' END AS STATUS FROM equipment_category_lk ecl JOIN equipment_type_lk etl ON ecl.equipment_category_id = etl.equipment_category_id JOIN equipments e ON etl.equipment_type_id = e.equipment_type_id JOIN allocation_operation ao ON e.equipment_status = ao.operation_id
+
+	
+	desc equipments 
+	
+	
+ALTER TABLE equipments ADD COLUMN equipment_origin VARCHAR(1) ;
+
+SELECT
+	a.`equipment_id`,
+	CASE
+		WHEN a.`equipment_status` = '3' THEN 'Inactive'
+		WHEN a.`equipment_status` = '1' THEN 'Active'
+		WHEN a.`equipment_status` = '2' THEN 'Active'
+		WHEN (a.`equipment_status` = 9
+		AND a.`equipment_status` != '14'
+		AND a.`equipment_status` != '17') THEN 'Dispatched'
+		WHEN (a.`equipment_status` = '4'
+		AND a.`equipment_alloc_status` = '0') THEN 'Send to maintanance'
+		ELSE d.`operation_name_desc`
+	END AS STATUS,
+	a.`equipment_plate_no`,
+	c.`equipment_type_name`,
+	a.`equipment_status`,
+	a.`equipment_alloc_status`,
+	e.`user_name`,
+	DATE_FORMAT(a.`created_at`, '%d %M %Y'),
+	ecl.equipment_category_name,
+	a.equipment_origin 
+FROM
+	`equipments` a
+JOIN `equipment_type_lk` c ON
+	a.`equipment_type_id` = c.`equipment_type_id`
+JOIN `allocation_operation` d ON
+	d.`operation_id` = a.`equipment_status`
+JOIN `application_user` e ON
+	e.`user_id` = a.`created_by`
+JOIN equipment_category_lk ecl ON
+	ecl.equipment_category_id = c.equipment_category_id
+ORDER BY
+	a.`equipment_id` DESC
+LIMIT 1,
+10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
