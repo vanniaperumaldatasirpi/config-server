@@ -1,6 +1,17 @@
 use trojan_allocation;
 
 
+for dispatch button is not showing 
+------------------------------------
+
+SELECT * FROM allocation_request_dtl ard  WHERE allocation_request_id = 5895
+
+SELECT * FROM alloc_req_equip_dtl ared  WHERE alloc_req_dtl_id in ()
+
+update alloc_req_equip_dtl set driver_name = null where alloc_req_eqp_dtl_id in ()
+
+
+
 
 show tables;
 
